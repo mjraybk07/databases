@@ -33,3 +33,8 @@ bower_components/
 .floobit
 .floo
 .flooignore
+
+# OSX stuff
+.DS_Store
+non-relational-resources/.DS_Store
+server/.DS_Store
