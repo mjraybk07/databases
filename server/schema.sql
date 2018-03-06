@@ -1,10 +1,10 @@
 DROP DATABASE IF EXISTS `chat`;
 
-CREATE DATABASE chat; 
+CREATE DATABASE chat;
 
 USE chat;
 
-DROP TABLE IF EXISTS `messages`;
+DROP TABLE IF EXISTS messages;
 
 CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -18,10 +18,10 @@ CREATE TABLE `messages` (
 /* Create other tables and define schemas for them here! */
 
 -- Creating users
-DROP TABLE IF EXISTS `users`;       
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(30) NULL DEFAULT NULL,
+  `username` VARCHAR(30) NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE `rooms` (
 -- JOIN Tables
 
 
-DROP TABLE IF EXISTS `users_messages`;    
+DROP TABLE IF EXISTS `users_messages`;
 CREATE TABLE `users_messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `user_id` INTEGER NULL DEFAULT NULL,
@@ -45,22 +45,22 @@ CREATE TABLE `users_messages` (
 );
 
 
-DROP TABLE IF EXISTS `messages_rooms`;
-CREATE TABLE `messages_rooms` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `message_id` INTEGER NULL DEFAULT NULL,
-  `room_id` INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
+-- DROP TABLE IF EXISTS `messages_rooms`;
+-- CREATE TABLE `messages_rooms` (
+--   `id` INTEGER NOT NULL AUTO_INCREMENT,
+--   `message_id` INTEGER NULL DEFAULT NULL,
+--   `room_id` INTEGER NULL DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- );
 
 -- ---
--- Foreign Keys 
+-- Foreign Keys
 -- ---
 
 ALTER TABLE `users_messages` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
 ALTER TABLE `users_messages` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
-ALTER TABLE `messages_rooms` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
-ALTER TABLE `messages_rooms` ADD FOREIGN KEY (room_id) REFERENCES `rooms` (`id`);
+-- ALTER TABLE `messages_rooms` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
+-- ALTER TABLE `messages_rooms` ADD FOREIGN KEY (room_id) REFERENCES `rooms` (`id`);
 
 -- ---
 -- Table Properties
