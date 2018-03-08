@@ -12,15 +12,17 @@ module.exports = {
     
     post: function (req, res) {
       var username = req.body.username;
-      var message = req.body.message;
-      var room = req.body.roomname;
-      var params = [username, message, room];
+      var text = req.body.text;
+      var roomname = req.body.roomname;
+      var params = [username, text, roomname];
+      
+      var message = req.body;
       console.log('😀  REQUEST:', req.body);
       
       // todo add 'send' status code
       
-      models.messages.post(params, function(message) {
-        res.send(message);
+      models.messages.post(message, function(data) {
+        res.send(data);
       })
       
       //console.log("controller post messages")

@@ -12,17 +12,15 @@ module.exports = {
         callback({results: result});
       });
     }, 
-    post: function (params, callback) { // a function which can be used to insert a message into the database
+    post: function (message, callback) { // a function which can be used to insert a message into the database
       
-      // var queryString = "INSERT INTO messages(username, text, roomname) VALUES('ericpark', 'this is a message', 'roomname')";
-      
-      var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${params[0]}", "${params[1]}", "${params[2]}")`;
+      var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${message.username}", "${message.text}", "${message.roomname}")`;
       
       db.dbConnection.query(queryString, function(err, result) {
         if(err) {
           throw err;
         }
-        callback('Message Added');
+        callback(`Message added: ${JSON.stringify(message)}`);
       })
     } 
   },
