@@ -5,6 +5,7 @@ var db = require('./db');
 var morgan = require('morgan');
 var parser = require('body-parser');
 
+
 // Router
 var router = require('./routes.js');
 
@@ -16,10 +17,19 @@ app.set('port', 3000);
 
 // Logging and parsing
 app.use(morgan('dev'));
+//app.use(parser.json());
+
+app.use(parser.urlencoded({
+  extended: true
+}));
+
 app.use(parser.json());
 
 // Set up our routes
 app.use('/classes', router);
+// app.post('/classes/messages', function (req, res) {
+//   console.log(req.body);
+// })
 
 // Serve the client files
 app.use(express.static(__dirname + '/../client'));

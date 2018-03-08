@@ -4,12 +4,13 @@ CREATE DATABASE chat;
 
 USE chat;
 
-DROP TABLE IF EXISTS messages;
+-- -- Globals
 
 CREATE TABLE `messages` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `roomname` VARCHAR(30) NULL DEFAULT NULL,
   `text` VARCHAR(255) NULL DEFAULT NULL,
+  `username` VARCHAR(30) NULL DEFAULT NULL,
   `createdAt` DATE NULL DEFAULT NULL,
   `updatedAt` DATE NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -18,7 +19,7 @@ CREATE TABLE `messages` (
 /* Create other tables and define schemas for them here! */
 
 -- Creating users
-DROP TABLE IF EXISTS `users`;
+-- DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
   `username` VARCHAR(30) NULL DEFAULT NULL,
@@ -26,23 +27,28 @@ CREATE TABLE `users` (
 );
 
 -- Creating rooms
-DROP TABLE IF EXISTS `rooms`;
-CREATE TABLE `rooms` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(30) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
+-- DROP TABLE IF EXISTS `rooms`;
+-- CREATE TABLE `rooms` (
+--   `id` INTEGER NOT NULL AUTO_INCREMENT,
+--   `name` VARCHAR(30) NULL DEFAULT NULL,
+--   PRIMARY KEY (`id`)
+-- );
 
 -- JOIN Tables
 
+-- SET FOREIGN_KEY_CHECKS=0;
 
-DROP TABLE IF EXISTS `users_messages`;
-CREATE TABLE `users_messages` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `user_id` INTEGER NULL DEFAULT NULL,
-  `message_id` INTEGER NULL DEFAULT NULL,
-  PRIMARY KEY (`id`)
-);
+-- -- DROP TABLE IF EXISTS `users_messages`;
+-- CREATE TABLE `users_messages` (
+--   `id` INTEGER NOT NULL AUTO_INCREMENT,
+--   `user_id` INTEGER NULL DEFAULT NULL,
+--   `message_id` INTEGER NULL DEFAULT NULL,
+--   PRIMARY KEY (`id`),
+--   FOREIGN KEY (user_id) REFERENCES `users` (`id`),
+--   FOREIGN KEY (message_id) REFERENCES `messages` (`id`)
+-- );
+
+-- -- SET FOREIGN_KEY_CHECKS=1;
 
 
 -- DROP TABLE IF EXISTS `messages_rooms`;
@@ -57,8 +63,8 @@ CREATE TABLE `users_messages` (
 -- Foreign Keys
 -- ---
 
-ALTER TABLE `users_messages` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
-ALTER TABLE `users_messages` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
+-- ALTER TABLE `users_messages` ADD FOREIGN KEY (user_id) REFERENCES `users` (`id`);
+-- ALTER TABLE `users_messages` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
 -- ALTER TABLE `messages_rooms` ADD FOREIGN KEY (message_id) REFERENCES `messages` (`id`);
 -- ALTER TABLE `messages_rooms` ADD FOREIGN KEY (room_id) REFERENCES `rooms` (`id`);
 
