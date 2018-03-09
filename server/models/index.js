@@ -6,11 +6,11 @@ module.exports = {
     // get all messages
     get: function ( callback ) {
 
-      var queryString 'SELECT messages.id, messages.text, messages.roomname FROM messages \
-                      LEFT OUTER JOIN users ON (messages.userid = users.id \
-                      ORDER BY messages.id desc)';
+      var queryString = 'SELECT messages.id, messages.text, messages.roomname, users.username FROM messages \
+                      LEFT OUTER JOIN users ON (messages.userid = users.id) \
+                      ORDER BY messages.id desc';
       
-      db.dbConnection.query(queryString, function (err, results) {
+      db.query(queryString, function (err, results) {
         if (err) {
           throw err;
         }
@@ -27,7 +27,7 @@ module.exports = {
                         VALUES(?, (SELECT id FROM users WHERE username = ? limit 1), ?)';
       
       
-      db.dbConnection.query(queryString, params, function(err, results) {
+      db.query(queryString, params, function(err, results) {
         if(err) {
           throw err;
         }
@@ -40,7 +40,7 @@ module.exports = {
     get: function (callback) {
       // fetch all users
       var queryString = 'SELECT * from users';
-      db.dbconnection.query(queryString, function (err, results) {
+      db.query(queryString, function (err, results) {
         if (err) {
           throw err;
         }
@@ -51,7 +51,7 @@ module.exports = {
     post: function (params, callback) {
       //create a user
       var queryString = 'INSERT into users(username) VALUES(?)';
-      db.dbconnection.query(queryString, params, function (err, results) {
+      db.query(queryString, params, function (err, results) {
         if (err) {
           throw err;
         }
