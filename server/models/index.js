@@ -1,7 +1,9 @@
 var db = require('../db');
 
 module.exports = {
-  messages: { // a function which produces all the messages
+  messages: {
+    
+    // get all messages
     get: function ( callback ) {
       var queryString = 'SELECT * FROM messages';
       db.dbConnection.query(queryString, function (err, result) {
@@ -11,8 +13,12 @@ module.exports = {
         // send result to controller;
         callback({results: result});
       });
-    }, 
-    post: function (message, callback) { // a function which can be used to insert a message into the database
+    },
+    
+    
+    // create a message 
+    post: function (message, callback) { 
+      
       
       var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${message.username}", "${message.text}", "${message.roomname}")`;
       
@@ -26,9 +32,26 @@ module.exports = {
   },
 
   users: {
-    // Ditto as above.
-    get: function () {},
-    post: function () {}
+    get: function (callback) {
+      // fetch all users
+      var queryString = 'SELECT * from users';
+      db.dbconnection.query(queryString, function (err, result) {
+        if (err) {
+          throw err;
+        }
+        callback (result);
+      });
+    },
+    post: function (params, callback) {
+      //create a user
+      var queryString = `INSERT into users(username) VALUES(${params})`;
+      db.dbconnection.query(queryString, function (err, result) {
+        if (err) {
+          throw err;
+        }
+        callback (result);
+      });
+    }
   }
 };
 
