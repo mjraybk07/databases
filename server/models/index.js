@@ -10,27 +10,31 @@ module.exports = {
                       LEFT OUTER JOIN users ON (messages.userid = users.id \
                       ORDER BY messages.id desc);';
       
-      db.dbConnection.query(queryString, function (err, result) {
+      db.dbConnection.query(queryString, function (err, results) {
         if (err) {
           throw err;
         }
-        // send result to controller;
-        callback({results: result});
+        // send results to controller;
+        callback(results);
       });
     },
     
     
     // create a message 
-    post: function (message, callback) { 
+    post: function (params, callback) { 
       
       
-      var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${message.username}", "${message.text}", "${message.roomname}")`;
+      //var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${message.username}", "${message.text}", "${message.roomname}")`;
       
-      db.dbConnection.query(queryString, function(err, result) {
+      var queryString = 'INSERT INTO messages(text, userid, roomname) \
+                        VALUES(?, (SELECT id FROM users WHERE username = ? limit 1), ?);'
+      
+      
+      db.dbConnection.query(queryString, params, function(err, results) {
         if(err) {
           throw err;
         }
-        callback(`Message added: ${JSON.stringify(message)}`);
+        callback(results);
       })
     } 
   },
