@@ -5,7 +5,7 @@ module.exports = {
     
     // get all messages
     get: function ( callback ) {
-      //var queryString = 'SELECT * FROM messages';
+
       var queryString 'SELECT messages.id, messages.text, messages.roomname FROM messages \
                       LEFT OUTER JOIN users ON (messages.userid = users.id \
                       ORDER BY messages.id desc)';
@@ -22,9 +22,6 @@ module.exports = {
     
     // create a message 
     post: function (params, callback) { 
-      
-      
-      //var queryString = `INSERT INTO messages(username, text, roomname) VALUES("${message.username}", "${message.text}", "${message.roomname}")`;
       
       var queryString = 'INSERT INTO messages(text, userid, roomname) \
                         VALUES(?, (SELECT id FROM users WHERE username = ? limit 1), ?)';
@@ -50,6 +47,7 @@ module.exports = {
         callback (results);
       });
     },
+    
     post: function (params, callback) {
       //create a user
       var queryString = 'INSERT into users(username) VALUES(?)';
