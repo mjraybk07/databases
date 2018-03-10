@@ -15,6 +15,7 @@ module.exports = {
     
     post: function (req, res) {
       var params = [ req.body[text], req.body[username], req.body[roomname] ];
+      console.log('😀  MESSAGES REQUEST:', req.body);
       
       models.messages.post ( params, function(err, results) {
         // TODO handle error
